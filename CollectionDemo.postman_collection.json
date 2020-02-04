@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "086af5d6-58cb-4cb7-9ad7-b95debc235a6",
+		"name": "CollectionDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Districts",
+			"item": [
+				{
+					"name": "GetUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f6be3ee3-89a0-45e9-a7bc-8127c7964023",
+								"exec": [
+									"//First Test Case\r",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"//Second Test Case\r",
+									"tests[\"Body matches string\"] = responseBody.has(\"George\");\r",
+									"\r",
+									"//Third Test Case\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"tests[\"Response should have id of George as 1: \" ] = jsonData.data[0].id === 1;\r",
+									"\r",
+									"//Fourth Test Case\r",
+									"tests[\"Response should have last name of George as bluth\" ] = jsonData.data[0].last_name === \"Bluth\";\r",
+									"\r",
+									"//Fifth Test Case\r",
+									"var body = JSON.parse(responseBody);\r",
+									"tests[\"Total count: \"] = body.total === 12;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://reqres.in/api/users?page=1",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d4dc01e-7e16-4071-9c5b-649e25e5bce0",
+								"exec": [
+									"pm.test(\"Check if user with id 1 is Leanne Graham\", function()",
+									"{",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].name).to.eql(\"Leanne Graham\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDistricts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3ed2754-3cc2-4621-8a2b-d1818abf0093",
+								"exec": [
+									"tests[\"Response code is 200 OK\"] = responseCode.code === 200;",
+									"",
+									"var results = JSON.parse(responseBody);",
+									"if(results.data[0].districtName === 'BARBOUR COUNTY SCHOOLS'){",
+									"tests[\"District id of Barbour County Schools is 2\"] = results.data[0].districtId === 2;",
+									"}",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Districts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Districts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e2fefe1-032d-41f2-ad76-71690ea768c9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var results = JSON.parse(responseBody);",
+									"if(results.data[3].stateCd === 'AZ'){",
+									"tests[\"State id of AZ is 4\"] = results.data[3].stateId === 4;",
+									"}",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Districts/GetStates",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Districts",
+								"GetStates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByRegionId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Districts/{{regionId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Districts",
+								"{{regionId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Realms",
+			"item": [
+				{
+					"name": "GetRealms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc046a96-d330-4673-9cc7-c043e8bb83ec",
+								"exec": [
+									"tests[\"Response code is 200 OK\"] = responseCode.code === 200;",
+									"",
+									"var results = JSON.parse(responseBody);",
+									"if(results.data[0].realmDescription === 'Cybersoft Only'){",
+									"tests[\"Realm id of Cybersoft is 1\"] = results.data[0].realmId === 1;",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Realms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Realms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Realms/userId/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Realms",
+								"userId",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e55101d0-bb2c-4c90-8fe1-916d856b5e79",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "27d2229a-f0d1-4466-b010-d70f19c65c10",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "123f634a-a461-4dc3-a388-617511473a61",
+			"key": "url",
+			"value": "https://snd.primeroedge.co/Organization",
+			"type": "string"
+		},
+		{
+			"id": "39661821-f3fc-4b7f-a043-91e1c90fce87",
+			"key": "regionId",
+			"value": "3",
+			"type": "string"
+		},
+		{
+			"id": "23b44d64-b536-4665-9ab0-d34edeb2e6c7",
+			"key": "userId",
+			"value": "319",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
